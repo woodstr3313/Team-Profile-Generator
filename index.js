@@ -1,7 +1,7 @@
 // MODULES
 const inquirer = require("inquirer");
 const fs = require("fs");
-
+const teamGenerator = require("./src/template")
 // LIB MODULES
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -53,7 +53,7 @@ const questions = async() => {
             answers.email,
             managerQuestions.officeNumber
         );
-        newStaffMemberData.push(newManager);
+        staffMemberData.push(newManager);
     }
 
     // ENGINEER QUESTIONS
@@ -71,7 +71,7 @@ const questions = async() => {
             answers.email,
             getGithub.github
         );
-        newStaffMemberData.push(newEngineer);
+        staffMemberData.push(newEngineer);
     }
 
 //  INTERN QUESTIONS
@@ -89,7 +89,7 @@ const questions = async() => {
          answers.email,
          internQuestions.school
      );
-     newStaffMemberData.push(newIntern);
+     staffMemberData.push(newIntern);
  }
 };
 
@@ -106,7 +106,14 @@ async function promptQuestions() {
     if (addAnswers.addMember === "Add a new member"){
         return promptQuestions()
     }
-
+    return generateTeam();
+}
+function generateTeam () {
+    fs.writeFileSync(
+        "./dist/index.html",
+        teamGenerator(staffMemberData),
+        "utf-8"
+    );
 }
 
 promptQuestions()
