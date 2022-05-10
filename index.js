@@ -30,7 +30,7 @@ const questions = async() => {
         name: "email",
         },
         {
-            type: "input",
+            type: "list",
             message: "What is your role?",
             name: "role",
             choices: ["Engineer", "Intern", "Manager"],
@@ -76,7 +76,7 @@ const questions = async() => {
 
 //  INTERN QUESTIONS
  else if (answers.role === "Intern") {
-     const internQuestions = await inquerer .prompt ([
+     const internQuestions = await inquirer .prompt ([
          {
             type: "input",
             message: "What university did you go to?",
@@ -108,12 +108,12 @@ async function promptQuestions() {
     }
     return generateTeam();
 }
+promptQuestions()
 function generateTeam () {
+    console.log("New mem", staffMemberData)
     fs.writeFileSync(
         "./dist/index.html",
         teamGenerator(staffMemberData),
         "utf-8"
     );
 }
-
-promptQuestions()
